@@ -1,23 +1,19 @@
 <?php
 class Mahasiswa_model {
-  private $dbhandler;
-  private $statement;
+  private $table = 'mahasiswa'; // table yang digunakan di db phpmvc
+  private $db; // untuk menampung class Database
 
   public function __construct() {
-    // data source name
-    $dsn = 'mysql:host=localhost;dbname=phpmvc'; 
-
-    try {
-      $this->dbhandler = new PDO($dsn, 'root', '');
-    } catch(PDOException $e) {
-      die($e->getMessage()); // menghentikan program
-    }
-
+    $this->db = new Database; // intansiasi (agar langsung bisa dipake methodnya di controler)
   }
-
     public function getAllMhs() {
-      $this->statement = $this->dbhandler->prepare('SELECT * FROM mahasiswa');
-      $this->statement->execute();
-      return $this->statement->fetchAll(PDO::FETCH_ASSOC); //dikembalikan sbg array assoc
+      $this->db->query('SELECT * FROM ' . $this->table);
+      return $this->db->resultSet(); // tampilin semua data
+    }
+    
+    public function getMhsById($id) {
+      $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id'); // id ngga langusng dimasukin dan akan kita binding untuk menghindari sql injection
+      $this->db->bind('id', $id);
+      return $this->db->single();
     }
 }

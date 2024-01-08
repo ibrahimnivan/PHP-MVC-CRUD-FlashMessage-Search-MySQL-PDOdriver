@@ -85,3 +85,34 @@ class Mahasiswa_model {
 13. database wrapper
 - mengelola database untuk berbagai model manapun
 
+14. menghindari __SQL INJECTION__
+```php
+// di core Database.php
+  public function bind($param, $value, $type = null) {
+    if(is_null($type)) {
+      switch(true) {
+        case is_int($value) :
+          $type = PDO::PARAM_INT;
+          break;
+        case is_bool($value) :
+          $type = PDO::PARAM_BOOL;
+          break;
+        case is_null($value) :
+          $type = PDO::PARAM_NULL;
+          break;
+        default :
+          $type = PDO::PARAM_STR;
+      }
+    }
+
+    $this->statement->bindValue($param, $value, $type); // kita bind dan tidak langsung dimasukan ke query supaya terhindar dari sql injection, karena query dieksekusi setelah string dibersihkan
+  }
+
+  // di model Mahasiswa_model.php
+      public function getMhsById($id) {
+      $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id'); // id ngga langusng dimasukin dan akan kita binding untuk menghindari sql injection
+      $this->db->bind('id', $id);
+      return $this->db->single();
+    }
+  ```
+

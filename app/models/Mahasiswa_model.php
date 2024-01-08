@@ -52,4 +52,12 @@ class Mahasiswa_model {
 
       return $this->db->rowCount(); // kl berhasil > 0  method ubah + flasher dijalankan
     }
+
+    public function cariDataMhs() {
+      $keyword = $_POST['keyword'];
+      $query = "SELECT * FROM mahasiswa WHERE nama LIKE :keyword";
+      $this->db->query($query);
+      $this->db->bind('keyword', "%$keyword%");
+      return $this->db->resultSet();
+    }
   }

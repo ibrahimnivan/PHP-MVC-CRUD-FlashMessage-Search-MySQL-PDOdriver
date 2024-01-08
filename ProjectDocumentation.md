@@ -422,4 +422,38 @@ function (data) { // dijalankan kl success
 ```
 
 20. SEARCH DATA based on nama
+20. 1. buat komponen search dengan `name="keyword"` dengan `action` menuju method `cari` 
+```html
+form action="<?= BASEURL ?>/mahasiswa/cari" method="post">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="cari mahasiswa...." name="keyword" id="keyword"
+            autocomplete="off">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" id="tombolCari">Cari</button>
+          </div>
+        </div>
+      </form>
+```
+
+20. 2. method `cari()` di controler Mahasiswa
+```php
+  public function cari() {
+    $data['judul'] = 'Daftar Mahasiswa';
+    $data['mhs'] = $this->model('Mahasiswa_model')->cariDataMhs(); //$data['mhs'] diperbaharui saat cariDataMhs() dijalankan
+    $this->view('templates/header', $data);
+    $this->view('mahasiswa/index', $data); // data mhs
+    $this->view('templates/footer');
+  }
+```
+
+20. 3. method `cariDataMhs()` di Mahasiswa_modal.php untuk memberbaharui __data['mhs'] untuk foreach komponent li data di index__
+```php
+   public function cariDataMhs() {
+      $keyword = $_POST['keyword'];
+      $query = "SELECT * FROM mahasiswa WHERE nama LIKE :keyword";
+      $this->db->query($query);
+      $this->db->bind('keyword', "%$keyword%");
+      return $this->db->resultSet();
+    }
+```
 

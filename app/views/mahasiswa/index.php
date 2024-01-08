@@ -17,12 +17,12 @@
   </div>
   <div class="row mt-3">
     <div class="col-lg-6">
-      <form action="<?= BASEURL ?>/mahasiswa/car" method="post">
+      <form action="<?= BASEURL ?>/mahasiswa/cari" method="post">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="cari mahasiswa" name="keyword" id="keyword"
+          <input type="text" class="form-control" placeholder="cari mahasiswa...." name="keyword" id="keyword"
             autocomplete="off">
           <div class="input-group-append">
-            <button class="btn btn-outline-primary" type="button" id="tombolCari">Cari</button>
+            <button class="btn btn-primary" type="submit" id="tombolCari">Cari</button>
           </div>
         </div>
       </form>

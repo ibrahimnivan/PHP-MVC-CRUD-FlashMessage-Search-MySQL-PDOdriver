@@ -1,14 +1,15 @@
 ------------------------------------
 # app : menyediakan semua source yang dibutuhkan public
-1. init.php : untuk bootsraping
+1. `init.php` : untuk bootsraping
 ## core
-1. App.php : for routing
-2. Controler.php : 
+1. `App.php` : for routing
+2. `Controler.php` : 
 -- method 'view': untuk mengarahkan setiap controler dan method ke view dan templatenya
 -- method 'model': untuk mengarahkan ke directori model yang dibutuhkan
-3. Constant.php : untuk menyimpan semua konstanta agar memudahkan ketika ada perubahan konstanta alamat
+3. `Constant.php` : untuk menyimpan semua konstanta agar memudahkan ketika ada perubahan konstanta alamat
 -- menyimpan URL Absolut : `define('BASEURL', 'http://localhost/projects/003%20mvc/public');`
-4. Database.php : untuk database wrapper
+4. `Database.php` : untuk database wrapper
+5. `Flasher.php` untuk flash message
 ## controler : mendefinisikan route
 ## views 
 -- tampilan yang dibutuhkan setiap route(controler dan method)

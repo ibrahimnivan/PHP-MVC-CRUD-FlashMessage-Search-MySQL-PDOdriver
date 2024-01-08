@@ -31,7 +31,7 @@ class Database {
   }
 
   public function bind($param, $value, $type = null) {
-    if(is_null($type)) {
+    if(is_null($type)) { //Jika belum diatur ($type is null), maka dilakukan pengecekan tipe data nilai ($value).
       switch(true) {
         case is_int($value) :
           $type = PDO::PARAM_INT;
@@ -62,6 +62,10 @@ class Database {
   public function single() { // kl datanya satu
     $this->execute();
     return $this->statement->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public function rowCount() { // menghitung baris baru
+    return $this->statement->rowCount(); // rowCount() pnya PDO;
   }
 
 }
